@@ -1,5 +1,3 @@
-import re
-
 months = [
     "January",
     "February",
@@ -16,24 +14,39 @@ months = [
 ]
 while True:
     try:
-        date = input("Enter Date:")
+        date = input("Enter Date:").strip()
         if "/" in date:
             month, day, year = date.split("/")
-        else:
-            month, day, year = re.split(r"/| ,| ", date)
+            if not month.isdigit():
+                continue
+
+        elif "," in date:
+            parts = date.split()
+            if len(parts) != 3:
+                continue
+
+            month, day, year = parts[0], parts[1], parts[2]
+
+            if month in months: # if "month day, year" format
+                month = months.index(month) + 1
+            else:
+                continue
+
+            if not day.endswith(","):
+                continue
             day = day.replace(",", "")
-        
-        if month in months: # if "month day, year" format
-            month = months.index(month) + 1
+
+        else:
+            continue
 
         month, day, year = int(month), int(day), int(year)
         if not (1 <= int(month) <= 12 and 1 <= int(day) <= 31 and 0 <= int(year) <= 9999): #check correctness in date
             raise ValueError
 
-    except ValueError:
-        print("Enter correct date")
+    except (ValueError, IndexError):
+        continue
     except EOFError:
-        print("User stopped inputing")
+        break
     else:  
         print(f"{year:04}-{month:02}-{day:02}")
         break
