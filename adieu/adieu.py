@@ -4,7 +4,7 @@ p = inflect.engine()
 names = []
 while True:
     try:
-        name = input("Name: ")
+        name = input("")
         names.append(name)
     except (EOFError, KeyboardInterrupt):
         break
