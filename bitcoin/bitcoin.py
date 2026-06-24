@@ -27,7 +27,7 @@ def main():
 
     single_bitcoin_cost = float(data["data"]["priceUsd"])
     cost = amount * single_bitcoin_cost
-    print(f"{cost:,.4f}")
+    print(f"${cost:,.4f}")
 
 
 if __name__ == "__main__":
